@@ -1,4 +1,4 @@
-const knex = require('../conexao');
+const knex = require('../database/conexao');
 const bcrypt = require('bcrypt');
 
 const cadastrarUsuario = (req, res) => {
