@@ -41,7 +41,7 @@ const cadastrarUsuario = async (req, res) => {
     }
 };
 
-const listarUsuario = async (req, res) => {
+const detalharUsuarioLogado = async (req, res) => {
     try {
         return res.status(200).json(req.usuario);
     } catch (error) {
@@ -84,6 +84,6 @@ const editarUsuario = async (req, res) => {
 
 module.exports = {
     cadastrarUsuario,
-    listarUsuario,
+    detalharUsuarioLogado,
     editarUsuario
 }

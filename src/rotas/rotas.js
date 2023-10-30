@@ -14,7 +14,7 @@ rotas.get('/usuarios', categorias.listarCategorias);
 
 rotas.use(verificarLogin);
 
-rotas.get('/usuario', usuarios.listarUsuario);
+rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 
 rotas.put('/usuario', usuarios.editarUsuario)
 
