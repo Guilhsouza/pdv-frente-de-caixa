@@ -43,8 +43,7 @@ const cadastrarUsuario = async (req, res) => {
 
 const listarUsuario = async (req, res) => {
     try {
-        const usuarios = await knex('usuarios');
-        return res.status(200).json(usuarios);
+        return res.status(200).json(req.usuario);
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -56,7 +55,7 @@ const editarUsuario = async (req, res) => {
 
     try {
         if (!nome || !email || !senha) {
-            return res.status(400).json({ mensagem: 'Esta faltando algum campo obrigatório.' })
+            return res.status(400).json({ mensagem: 'Esta faltando algum campo obrigatório' })
         };
 
         const usuario = await knex('usuarios').where({ id });
