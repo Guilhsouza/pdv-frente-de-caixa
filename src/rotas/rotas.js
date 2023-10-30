@@ -10,7 +10,7 @@ rotas.post("/usuario", usuarios.cadastrarUsuario);
 
 rotas.post("/login", login.login)
 
-rotas.get('/usuarios', categorias.listarCategorias);
+rotas.get('/categoria', categorias.listarCategorias);
 
 rotas.use(verificarLogin);
 
