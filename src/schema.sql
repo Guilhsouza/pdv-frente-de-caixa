@@ -11,3 +11,15 @@ create table categorias (
     id serial primary key not null,
     descricao varchar(255)
   );
+
+insert into categorias (descricao) 
+values
+    ('Informática'),
+    ('Celulares'),
+    ('Beleza e Perfumaria'),
+    ('Mercado'),
+    ('Livros e Papelaria'),
+    ('Brinquedos'),
+    ('Moda'),
+    ('Bebê'),
+    ('Games');

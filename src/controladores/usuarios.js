@@ -26,14 +26,14 @@ const cadastrarUsuario = async (req, res) => {
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
         const usuario = await knex('usuarios')
-        .insert({ nome, email, senha: senhaCriptografada })
-        .returning('*');
+            .insert({ nome, email, senha: senhaCriptografada })
+            .returning('*');
 
-        if(usuario.length === 0) {
+        if (usuario.length === 0) {
             return res.status(400).json({ mensagem: 'Não foi possivel cadastrar o usuário.' })
         }
 
-        const {senha: _, ...usuarioSemSenha } = usuario[0];
+        const { senha: _, ...usuarioSemSenha } = usuario[0];
 
         return res.status(200).json(usuarioSemSenha);
     } catch (error) {
@@ -41,16 +41,49 @@ const cadastrarUsuario = async (req, res) => {
     }
 };
 
-const listarUsuario = async (req, res) => {
+const detalharUsuarioLogado = async (req, res) => {
     try {
-        const usuarios = await knex('usuarios');
-        return res.status(200).json(usuarios);
+        return res.status(200).json(req.usuario);
     } catch (error) {
         return res.status(400).json(error.message);
     }
 }
 
+const editarUsuario = async (req, res) => {
+    const { nome, email, senha } = req.body
+    const { id } = req.usuario
+
+    try {
+        if (!nome || !email || !senha) {
+            return res.status(400).json({ mensagem: 'Esta faltando algum campo obrigatório' })
+        };
+
+        const usuario = await knex('usuarios').where({ id });
+
+        if (!usuario) {
+            return res.status(404).json({ mensagem: 'O usuário não foi encontrado!' })
+        };
+
+        const senhaCriptografada = await bcrypt.hash(senha, 10)
+
+        await knex('usuarios')
+            .where({ id })
+            .update({
+                nome,
+                email,
+                senha: senhaCriptografada
+            });
+
+        return res.json({ mensagem: `O usuário ${req.usuario.nome} foi modificado com sucesso!` })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error.message)
+    }
+
+}
+
 module.exports = {
     cadastrarUsuario,
-    listarUsuario
+    detalharUsuarioLogado,
+    editarUsuario
 }
