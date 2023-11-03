@@ -49,14 +49,12 @@ const editarDadosProduto = async (req, res) => {
     const { error } = produtoSchema.validate(req.body)
 
     if (error) {
-      console.log('Dados inválidos:', error.details)
       return res.status(400).json({ mensagem: 'Dados inválidos', detalhes: error.details });
     }
 
     const produtoExistente = await knex('produtos').where({ id }).first();
 
     if (!produtoExistente) {
-      console.log('Produto não encontrado')
       return res.status(404).json({ mensagem: 'Produto não encontrado' });
     }
 
@@ -64,7 +62,6 @@ const editarDadosProduto = async (req, res) => {
 
 
     if (!categoriaExistente) {
-      console.log('Categoria não encontrada')
       return res.status(404).json({ mensagem: 'Categoria não encontrada' })
     }
 
@@ -74,7 +71,6 @@ const editarDadosProduto = async (req, res) => {
       .first();
 
     if (descricaoExistente) {
-      console.log('Produto com essa descrição já cadastrado')
       return res.status(409).json({ mensagem: 'Produto com essa descrição já cadastrado' });
     }
 
