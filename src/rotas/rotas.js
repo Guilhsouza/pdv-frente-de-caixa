@@ -1,9 +1,12 @@
-const { Router } = require('express');
+const {
+    Router
+} = require('express');
 const usuarios = require('../controladores/usuarios');
 const login = require('../controladores/login');
 const verificarLogin = require('../filtros/verificarLogin')
 const categorias = require('../controladores/categorias')
 const produtos = require('../controladores/produtos')
+const cliente = require('../controladores/cliente')
 
 const rotas = Router();
 
@@ -17,10 +20,16 @@ rotas.use(verificarLogin);
 
 rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 
-rotas.put('/usuario', usuarios.editarUsuario)
+rotas.put('/usuario', usuarios.editarUsuario);
 
-rotas.post('/produto', produtos.cadastrarProdutos)
+rotas.post('/produto', produtos.cadastrarProdutos);
 
-rotas.put('/produto/:id', produtos.editarDadosProduto)
+rotas.put('/produto/:id', produtos.editarDadosProduto);
+
+rotas.post('/cliente', cliente.cadastrarCliente);
+
+rotas.put('/cliente', cliente.atualizarCliente);
+
+
 
 module.exports = rotas
