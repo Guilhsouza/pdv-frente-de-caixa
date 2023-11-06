@@ -28,7 +28,7 @@ rotas.put('/produto/:id', produtos.editarDadosProduto);
 
 rotas.post('/cliente', cliente.cadastrarCliente);
 
-rotas.put('/cliente', cliente.atualizarCliente);
+rotas.put('/cliente/:id', cliente.atualizarCliente);
 
 
 
