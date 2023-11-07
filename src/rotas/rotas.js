@@ -18,11 +18,15 @@ rotas.use(verificarLogin);
 
 rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 
-rotas.put('/usuario', usuarios.editarUsuario)
+rotas.put('/usuario', usuarios.editarUsuario);
 
-rotas.post('/produto', produtos.cadastrarProdutos)
+rotas.post('/produto', produtos.cadastrarProdutos);
 
-rotas.put('/produto/:id', produtos.editarDadosProduto)
+rotas.put('/produto/:id', produtos.editarDadosProduto);
+
+rotas.get('/produto', produtos.listarProdutos);
+
+rotas.get('/produto/:id', produtos.detalharProduto);
 
 // route.put(
 // '/produto/:id',

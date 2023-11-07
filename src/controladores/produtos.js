@@ -89,7 +89,40 @@ const editarDadosProduto = async (req, res) => {
   }
 };
 
+const listarProdutos = async (req, res) => {
+    const { categoria_id } = req.query;
+
+        if (!categoria_id) {
+            const produtos = await knex('produtos');
+
+            return res.status(200).json(produtos)
+        };
+
+    const produtosComQuery = await knex('produtos').where('categoria_id', categoria_id);
+
+
+    return res.status(200).json(produtosComQuery)
+};
+
+const detalharProduto = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ mensagem: "[ERRO] Declare o ID do produto" })
+    };
+
+    const produto = await knex('produtos').where({ id });
+
+    if (!produto) {
+        return res.status(400).json({ mensagem: "[ERRO] Não foi possivel encontrar o produto" })
+    };
+
+    return res.status(200).json(produto[0])
+};
+
 module.exports = {
   cadastrarProdutos,
-  editarDadosProduto
+  editarDadosProduto,
+  listarProdutos,
+  detalharProduto
 };
