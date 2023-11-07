@@ -154,9 +154,7 @@ const atualizarCliente = async (req, res) => {
 
     return res.status(200).json('Usuário foi atualizado com sucesso.');
   } catch (error) {
-    return res.status(400).json({
-      mensagem: 'Erro interno do servidor.',
-    });
+    return res.status(400).json(error.message);
   }
 };
 
