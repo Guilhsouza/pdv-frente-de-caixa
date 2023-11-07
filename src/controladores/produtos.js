@@ -29,7 +29,6 @@ const cadastrarProdutos = async (req, res) => {
             .status(201)
             .json({ mensagem: 'Produto criado com sucesso', adicionarProduto });
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ mensagem: 'erro interno no servidor' });
     }
 };
