@@ -7,6 +7,8 @@ const verificarLogin = require('../filtros/verificarLogin')
 const categorias = require('../controladores/categorias')
 const produtos = require('../controladores/produtos')
 const cliente = require('../controladores/cliente')
+const validarProdutos = require('../intermediarios/validarProdutos')
+const produtoSchema = require('../validacoes/produtoSchema')
 
 const rotas = Router();
 
@@ -22,14 +24,12 @@ rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 
 rotas.put('/usuario', usuarios.editarUsuario);
 
-rotas.post('/produto', produtos.cadastrarProdutos);
+rotas.post('/produto', validarProdutos(produtoSchema), produtos.cadastrarProdutos);
 
 rotas.put('/produto/:id', produtos.editarDadosProduto);
 
 rotas.post('/cliente', cliente.cadastrarCliente);
 
-rotas.put('/cliente', cliente.atualizarCliente);
-
-
+rotas.put('/cliente/:id', cliente.atualizarCliente);
 
 module.exports = rotas

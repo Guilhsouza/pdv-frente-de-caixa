@@ -1,8 +1,7 @@
 const knex = require('../database/conexao')
-const bcrypt = require('bcrypt')
 
 const cadastrarCliente = async (req, res) => {
-    const { nome, email, senha, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
+    const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
     if (!nome) {
         return res.status(404).json({
             mensagem: 'O campo nome é obrigatório.'
@@ -11,11 +10,6 @@ const cadastrarCliente = async (req, res) => {
     if (!email) {
         return res.status(404).json({
             mensagem: 'O campo email é obrigatório.'
-        })
-    }
-    if (!senha) {
-        return res.status(404).json({
-            mensagem: 'O campo senha é obrigatório.'
         })
     }
 
@@ -79,13 +73,10 @@ const cadastrarCliente = async (req, res) => {
             })
         }
 
-        const senhaCriptografada = await bcrypt.hash(senha, 10)
-
         const cliente = await knex('clientes')
         .insert({
             nome,
             email,
-            senha: senhaCriptografada,
             cpf, 
             cep,
             rua, 
@@ -107,33 +98,33 @@ const cadastrarCliente = async (req, res) => {
 
 const atualizarCliente = async (req, res) => {
 
-    const { nome, email, senha, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
+    const { id } = req.params
 
-    if(!nome && !email && !senha && !cpf && !cep && !rua && !numero && !bairro && !cidade && !estado) {
+    const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
+
+    if(!nome && !email && !cpf && !cep && !rua && !numero && !bairro && !cidade && !estado) {
         return res.status(404).json('É obrigatório informar ao menos um campo para atualização.')
     }
 
     try {
-        const emailExiste = await knex('clientes').where({email}).first()
+        const emailExiste = await knex('clientes').where("email", email).first()
         
-        if (emailExiste && emailExiste !== req.cliente.email) {
+        if (emailExiste) {
             return res.status(400).json( 'O e-mail informado já está sendo ultilizado por outro cliente.' );
         }
 
-        const cpfExiste = await knex ('clientes').where({cpf}).first();
-
+        const cpfExiste = await knex ('clientes').where("cpf", cpf).first();
+        
         if (cpfExiste) {
             return res.status(404).json({
                 mensagem: 'O CPF informado já está sendo ultilizado por outro cliente.'
             })
         }
 
-        const senhaCriptografada = await bcrypt.hash(senha, 10)
 
-        const clienteAtualizado = await knex('clientes').where({id: req.cliente.id}).update ({
+        const clienteAtualizado = await knex('clientes').where("id", id).update ({
             nome,
             email,
-            senha: senhaCriptografada,
             cpf, 
             cep,
             rua, 
