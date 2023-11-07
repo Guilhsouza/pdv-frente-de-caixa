@@ -1,41 +1,35 @@
-const { Router } = require("express");
-const usuarios = require("../controladores/usuarios");
-const login = require("../controladores/login");
-const verificarLogin = require("../filtros/verificarLogin");
-const categorias = require("../controladores/categorias");
-const produtos = require("../controladores/produtos");
-const produtoSchema = require("../validacoes/produtoSchema");
-const { listarCliente, detalharCliente } = require("../controladores/clientes");
+const { Router } = require('express');
+const usuarios = require('../controladores/usuarios');
+const login = require('../controladores/login');
+const verificarLogin = require('../filtros/verificarLogin');
+const categorias = require('../controladores/categorias');
+const produtos = require('../controladores/produtos');
+const clientes = require('../controladores/clientes');
 
 const rotas = Router();
 
-rotas.post("/usuario", usuarios.cadastrarUsuario);
+rotas.post('/usuario', usuarios.cadastrarUsuario);
 
-rotas.post("/login", login.login);
+rotas.post('/login', login.login);
 
-rotas.get("/categoria", categorias.listarCategorias);
+rotas.get('/categoria', categorias.listarCategorias);
 
 rotas.use(verificarLogin);
 
-rotas.get("/usuario", usuarios.detalharUsuarioLogado);
+rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 
-rotas.put("/usuario", usuarios.editarUsuario);
+rotas.put('/usuario', usuarios.editarUsuario);
 
-rotas.post("/produto", produtos.cadastrarProdutos);
+rotas.post('/produto', produtos.cadastrarProdutos);
 
-rotas.put("/produto/:id", produtos.editarDadosProduto);
+rotas.put('/produto/:id', produtos.editarDadosProduto);
 
-rotas.get("/clientes", listarCliente);
+rotas.post('/cliente', clientes.cadastrarCliente);
 
-rotas.get("/clientes/id", detalharCliente);
+rotas.put('/cliente/:id', clientes.atualizarCliente);
 
-// route.put(
-// '/produto/:id',
-//     multer.single('produto_imagem'),
-//     validateRequestBody(productSchema),
-//     validateProductIdExist,
-//     validateCategoryExist,
-//     updateProduct
-// );
+rotas.get('/cliente', clientes.listarCliente);
+
+rotas.get('/cliente/:id', clientes.detalharCliente);
 
 module.exports = rotas;
