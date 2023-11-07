@@ -27,6 +27,7 @@ rotas.post('/produto', validarProdutos(produtoSchema), produtos.cadastrarProduto
 rotas.put('/produto/:id', produtos.editarDadosProduto);
 
 rotas.post('/cliente', cliente.cadastrarCliente);
+
 rotas.put('/cliente/:id', cliente.atualizarCliente);
 
 module.exports = rotas
