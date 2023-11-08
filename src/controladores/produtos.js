@@ -85,7 +85,7 @@ const editarDadosProduto = async (req, res) => {
     return res.status(200).json({ mensagem: 'Produto atualizado com sucesso' });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ mensagem: 'erro interno no servidor' });
+    return res.status(500).json({ mensagem: '[ERRO] Erro interno no servidor' });
   }
 };
 
