@@ -13,7 +13,10 @@ const cadastrarCliente = async (req, res) => {
         })
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f6187ac9cc01ba258f018e575efb791d344799e7
 
 >>>>>>> f6187ac9cc01ba258f018e575efb791d344799e7
     if (!cpf) {
