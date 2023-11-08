@@ -24,8 +24,8 @@ rotas.get('/usuario', usuarios.detalharUsuarioLogado);
 rotas.put('/usuario', usuarios.editarUsuario);
 
 rotas.post('/produto', validarProdutos(produtoSchema), produtos.cadastrarProdutos);
-rotas.put('/produto/:id', produtos.editarDadosProduto);
-
+rotas.put('/produto/:id', validarProdutos(produtoSchema), produtos.editarDadosProduto);
+rotas.delete('/produto/:id', produtos.removerProduto)
 rotas.post('/cliente', cliente.cadastrarCliente);
 
 rotas.put('/cliente/:id', cliente.atualizarCliente);

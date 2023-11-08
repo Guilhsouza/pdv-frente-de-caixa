@@ -12,13 +12,7 @@ const cadastrarCliente = async (req, res) => {
             mensagem: 'O campo email é obrigatório.'
         })
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> f6187ac9cc01ba258f018e575efb791d344799e7
 
->>>>>>> f6187ac9cc01ba258f018e575efb791d344799e7
     if (!cpf) {
         return res.status(404).json({
             mensagem: 'O campo CPF é obrigatório.'

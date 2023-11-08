@@ -75,7 +75,25 @@ const editarDadosProduto = async (req, res) => {
     }
 };
 
+const removerProduto = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const produtoExistente = await knex('produtos').where({ id }).first()
+
+        if (!produtoExistente) {
+            return res.status(400).json({ mensagem: 'Produto não encontrado' })
+        }
+
+        await knex('produtos').where({ id }).del();
+        return res.status(200).json({ mensagem: 'Produto excluído com sucesso' })
+    } catch (error) {
+        return res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    }
+}
+
 module.exports = {
     cadastrarProdutos,
-    editarDadosProduto
+    editarDadosProduto,
+    removerProduto
 };
