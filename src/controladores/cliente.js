@@ -2,7 +2,7 @@ const knex = require('../database/conexao')
 const bcrypt = require('bcrypt')
 
 const cadastrarCliente = async (req, res) => {
-    const { nome, email, senha, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
+    const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
     if (!nome) {
         return res.status(404).json({
             mensagem: 'O campo nome é obrigatório.'
@@ -13,12 +13,6 @@ const cadastrarCliente = async (req, res) => {
             mensagem: 'O campo email é obrigatório.'
         })
     }
-    if (!senha) {
-        return res.status(404).json({
-            mensagem: 'O campo senha é obrigatório.'
-        })
-    }
-
     if (!cpf) {
         return res.status(404).json({
             mensagem: 'O campo CPF é obrigatório.'
@@ -85,7 +79,6 @@ const cadastrarCliente = async (req, res) => {
         .insert({
             nome,
             email,
-            senha: senhaCriptografada,
             cpf, 
             cep,
             rua, 
