@@ -60,19 +60,50 @@ const editarDadosProduto = async (req, res) => {
             return res.status(409).json({ mensagem: 'Produto com essa descrição já cadastrado' });
         }
 
-        const produtoAtualizado = {
-            descricao,
-            quantidade_estoque,
-            valor,
-            categoria_id
+    const produtoAtualizado = {
+      descricao,
+      quantidade_estoque,
+      valor,
+      categoria_id
+    };
+
+    await knex('produtos').where({ id }).update(produtoAtualizado);
+    return res.status(200).json({ mensagem: 'Produto atualizado com sucesso' });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ mensagem: '[ERRO] Erro interno no servidor' });
+  }
+};
+
+const listarProdutos = async (req, res) => {
+    const { categoria_id } = req.query;
+
+        if (!categoria_id) {
+            const produtos = await knex('produtos');
+
+            return res.status(200).json(produtos)
         };
 
-        await knex('produtos').where({ id }).update(produtoAtualizado);
-        return res.status(200).json({ mensagem: 'Produto atualizado com sucesso' });
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({ mensagem: 'erro interno no servidor' });
-    }
+    const produtosComQuery = await knex('produtos').where('categoria_id', categoria_id);
+
+
+    return res.status(200).json(produtosComQuery)
+};
+
+const detalharProduto = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ mensagem: "[ERRO] Declare o ID do produto" })
+    };
+
+    const produto = await knex('produtos').where({ id });
+
+    if (!produto) {
+        return res.status(400).json({ mensagem: "[ERRO] Não foi possivel encontrar o produto" })
+    };
+
+    return res.status(200).json(produto[0])
 };
 
 const removerProduto = async (req, res) => {
@@ -95,5 +126,7 @@ const removerProduto = async (req, res) => {
 module.exports = {
     cadastrarProdutos,
     editarDadosProduto,
+    listarProdutos,
+    detalharProdutos,
     removerProduto
 };

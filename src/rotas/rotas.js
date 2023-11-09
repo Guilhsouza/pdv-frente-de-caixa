@@ -26,9 +26,13 @@ rotas.post('/produto', produtos.cadastrarProdutos);
 
 rotas.put('/produto/:id', produtos.editarDadosProduto);
 
-rotas.post('/cliente', clientes.cadastrarCliente);
+rotas.get('/produto', produtos.listarProdutos);
+
+rotas.get('/produto/:id', produtos.detalharProduto);
 
 rotas.delete('/produto/:id', produtos.removerProduto);
+
+rotas.post('/cliente', clientes.cadastrarCliente);
 
 rotas.put('/cliente/:id', clientes.atualizarCliente);
 
