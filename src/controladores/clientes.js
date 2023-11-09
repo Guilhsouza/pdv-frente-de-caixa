@@ -1,60 +1,9 @@
 const knex = require('../database/conexao');
+const joi = require('joi');
 
 const cadastrarCliente = async (req, res) => {
   const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } =
     req.body;
-  if (!nome) {
-    return res.status(404).json({
-      mensagem: 'O campo nome é obrigatório.',
-    });
-  }
-  if (!email) {
-    return res.status(404).json({
-      mensagem: 'O campo email é obrigatório.',
-    });
-  }
-
-  if (!cpf) {
-    return res.status(404).json({
-      mensagem: 'O campo CPF é obrigatório.',
-    });
-  }
-
-  if (!cep) {
-    return res.status(404).json({
-      mensagem: 'O campo cep é obrigatório.',
-    });
-  }
-
-  if (!rua) {
-    return res.status(404).json({
-      mensagem: 'O campo rua é obrigatório.',
-    });
-  }
-
-  if (!numero) {
-    return res.status(404).json({
-      mensagem: 'O campo número é obrigatório.',
-    });
-  }
-
-  if (!bairro) {
-    return res.status(404).json({
-      mensagem: 'O campo bairro é obrigatório.',
-    });
-  }
-
-  if (!cidade) {
-    return res.status(404).json({
-      mensagem: 'O campo cidade é obrigatório.',
-    });
-  }
-
-  if (!estado) {
-    return res.status(404).json({
-      mensagem: 'O campo nome é obrigatório.',
-    });
-  }
 
   try {
     const emailExiste = await knex('clientes').where('email', email).first();
@@ -102,22 +51,6 @@ const atualizarCliente = async (req, res) => {
 
   const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } =
     req.body;
-
-  if (
-    !nome &&
-    !email &&
-    !cpf &&
-    !cep &&
-    !rua &&
-    !numero &&
-    !bairro &&
-    !cidade &&
-    !estado
-  ) {
-    return res
-      .status(404)
-      .json('É obrigatório informar ao menos um campo para atualização.');
-  }
 
   try {
     const emailExiste = await knex('clientes').where('email', email).first();
