@@ -14,45 +14,24 @@ const validarClientes = require('../intermediarios/validarClientes');
 const rotas = Router();
 
 rotas.post('/usuario', usuarios.cadastrarUsuario);
-
 rotas.post('/login', login.login);
-
-rotas.get('/categoria', categorias.listarCategorias);
 
 rotas.use(verificarLogin);
 
 rotas.get('/usuario', usuarios.detalharUsuarioLogado);
-
 rotas.put('/usuario', usuarios.editarUsuario);
 
-rotas.post(
-  '/produto',
-  validarProdutos(produtoSchema),
-  produtos.cadastrarProdutos,
-);
+rotas.get('/categoria', categorias.listarCategorias);
 
-rotas.put(
-  '/produto/:id',
-  validarProdutos(produtoSchema),
-  produtos.editarDadosProduto,
-);
-
+rotas.post('/produto', validarProdutos(produtoSchema), produtos.cadastrarProdutos);
+rotas.put('/produto/:id', validarProdutos(produtoSchema), produtos.editarDadosProduto);
+rotas.get('/produto', produtos.listarProdutos);
+rotas.get('/produto/:id', produtos.detalharProduto);
 rotas.delete('/produto/:id', produtos.removerProduto);
 
-rotas.post(
-  '/cliente',
-  validarClientes(clienteSchema),
-  clientes.cadastrarCliente,
-);
-
-rotas.put(
-  '/cliente/:id',
-  validarClientes(clienteSchema),
-  clientes.atualizarCliente,
-);
-
+rotas.post('/cliente', validarClientes(clienteSchema), clientes.cadastrarCliente);
+rotas.put('/cliente/:id', validarClientes(clienteSchema), clientes.atualizarCliente);
 rotas.get('/cliente', clientes.listarCliente);
-
 rotas.get('/cliente/:id', clientes.detalharCliente);
 
 module.exports = rotas;
