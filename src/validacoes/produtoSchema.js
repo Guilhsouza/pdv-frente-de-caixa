@@ -5,6 +5,7 @@ const produtoSchema = joi.object({
         .required()
         .messages({
             'any.required': 'O campo descrição é obrigatório!',
+            'string.empty': 'O campo descrição deve ser do tipo texto!',
             'string.base': 'O campo descrição deve ser do tipo texto!'
         }),
     quantidade_estoque: joi.number()
