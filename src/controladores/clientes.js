@@ -46,7 +46,7 @@ const cadastrarCliente = async (req, res) => {
   }
 };
 
-const atualizarCliente = async (req, res) => {
+const editarCliente = async (req, res) => {
   const { id } = req.params;
 
   const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } =
@@ -114,8 +114,8 @@ const detalharCliente = async (req, res) => {
 };
 
 module.exports = {
-  listarCliente,
-  detalharCliente,
   cadastrarCliente,
-  atualizarCliente,
+  editarCliente,
+  detalharCliente,
+  listarCliente
 };
