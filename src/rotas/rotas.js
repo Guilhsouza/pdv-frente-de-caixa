@@ -6,7 +6,7 @@ const categorias = require('../controladores/categorias');
 const produtos = require('../controladores/produtos');
 const clientes = require('../controladores/clientes');
 
-const verificarLogin = require('../filtros/verificarLogin');
+const verificarLogin = require('../intermediarios/verificarLogin');
 const validacaoDoCorpoReq = require('../intermediarios/validarCorpoReq');
 
 const produtoSchema = require('../validacoes/produtoSchema');
