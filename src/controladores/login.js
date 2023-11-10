@@ -33,7 +33,6 @@ const login = async (req, res) => {
             token
         });
     } catch (error) {
-        console.log(error.message);
         return res.status(400).json(error.message);
     }
 }

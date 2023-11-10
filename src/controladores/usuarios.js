@@ -76,7 +76,6 @@ const editarUsuario = async (req, res) => {
 
         return res.json({ mensagem: `O usuário ${req.usuario.nome} foi modificado com sucesso!` })
     } catch (error) {
-        console.log(error)
         return res.status(500).json(error.message)
     }
 
