@@ -5,12 +5,14 @@ const login = require('../controladores/login');
 const categorias = require('../controladores/categorias');
 const produtos = require('../controladores/produtos');
 const clientes = require('../controladores/clientes');
+const pedidos = require('../controladores/pedidos')
 
 const verificarLogin = require('../intermediarios/verificarLogin');
 const validacaoDoCorpoReq = require('../intermediarios/validarCorpoReq');
 
 const produtoSchema = require('../validacoes/produtoSchema');
 const clienteSchema = require('../validacoes/clienteSchema');
+const pedidoSchema = require('../validacoes/pedidoSchema');
 
 const rotas = Router();
 
@@ -34,5 +36,7 @@ rotas.post('/cliente', validacaoDoCorpoReq(clienteSchema), clientes.cadastrarCli
 rotas.put('/cliente/:id', validacaoDoCorpoReq(clienteSchema), clientes.editarCliente);
 rotas.get('/cliente', clientes.listarCliente);
 rotas.get('/cliente/:id', clientes.detalharCliente);
+
+rotas.post('/pedido', validacaoDoCorpoReq(pedidoSchema), pedidos.cadastrarPedidos)
 
 module.exports = rotas;
