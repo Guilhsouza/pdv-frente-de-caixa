@@ -1,4 +1,5 @@
 const knex = require('../database/conexao')
+const enviar = require('../servicos/nodemailer')
 
 const cadastrarPedidos = async (req, res) => {
     const { cliente_id, observacao, pedido_produtos } = req.body
@@ -43,8 +44,13 @@ const cadastrarPedidos = async (req, res) => {
                 })
         }
 
+        const textoEmail = `Parabéns pela compra ${cliente.nome}, já que os produtos estão na sua casa!!`
+
+        enviar(cliente.email, 'Compra Efetuada com Sucesso!', textoEmail)
+
         return res.status(204).send()
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ mensagem: 'Erro interno no servidor.' })
     }
 
