@@ -10,18 +10,23 @@ const clienteSchema = joi.object({
   email: joi.string().email().required().messages({
     'any.required': 'O campo e-mail é obrigatório!',
     'string.empty': 'O campo e-mail deve ser preenchido com um e-mail válido!',
-    'string.base': 'O campo e-mail deve ser um e-mail válido!!',
+    'string.base': 'O campo e-mail deve ser um e-mail válido!',
+    'string.email': 'O campo e-mail deve ser um e-mail válido!'
   }),
 
-  cpf: joi.number().required().min(11).messages({
-    'any.required': 'O campo CPF é obrigatório!',
-    'string.empty': 'O campo CPF deve ser preenchido com numeros!',
-    'string.base': 'O campo CPF deve ser um CPF válido!',
-  }),
-  cep: joi.number().required().min(8).messages({
+  cpf:
+    joi.string().min(11).required().messages({
+      'any.required': 'O campo CPF é obrigatório!',
+      'string.empty': 'O campo CPF deve ser preenchido com numeros!',
+      'string.base': 'O campo CPF deve ser um CPF válido!',
+      'string.min': 'O campo CPF deve conter 11 dígitos'
+    }),
+
+  cep: joi.string().min(8).required().messages({
     'any.required': 'O campo CEP é obrigatório!',
     'string.empty': 'O campo CEP deve ser preenchido com numeros!',
     'string.base': 'O campo CEP deve ser um CEP válido!',
+    'string.min': 'O campo CEP deve conter 8 dígitos'
   }),
 
   rua: joi.string().required().messages({
@@ -30,7 +35,7 @@ const clienteSchema = joi.object({
     'string.base': 'O campo rua deve ser do tipo texto!',
   }),
 
-  numero: joi.number().required().messages({
+  numero: joi.number().integer().positive().required().messages({
     'any.required': 'O campo numero é obrigatório!',
     'string.empty': 'O campo numero deve ser preenchido com numeros!',
     'string.base': 'O campo numero deve ser um númer!',

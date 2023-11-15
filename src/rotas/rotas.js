@@ -2,14 +2,17 @@ const { Router } = require('express');
 
 const usuarios = require('../controladores/usuarios');
 const login = require('../controladores/login');
-const verificarLogin = require('../filtros/verificarLogin');
 const categorias = require('../controladores/categorias');
 const produtos = require('../controladores/produtos');
-const produtoSchema = require('../validacoes/produtoSchema');
-const validarProdutos = require('../intermediarios/validarProdutos');
 const clientes = require('../controladores/clientes');
+const pedidos = require('../controladores/pedidos')
+
+const verificarLogin = require('../intermediarios/verificarLogin');
+const validacaoDoCorpoReq = require('../intermediarios/validarCorpoReq');
+
+const produtoSchema = require('../validacoes/produtoSchema');
 const clienteSchema = require('../validacoes/clienteSchema');
-const validarClientes = require('../intermediarios/validarClientes');
+const pedidoSchema = require('../validacoes/pedidoSchema');
 
 const rotas = Router();
 
@@ -23,15 +26,17 @@ rotas.put('/usuario', usuarios.editarUsuario);
 
 rotas.get('/categoria', categorias.listarCategorias);
 
-rotas.post('/produto', validarProdutos(produtoSchema), produtos.cadastrarProdutos);
-rotas.put('/produto/:id', validarProdutos(produtoSchema), produtos.editarDadosProduto);
+rotas.post('/produto', validacaoDoCorpoReq(produtoSchema), produtos.cadastrarProdutos);
+rotas.put('/produto/:id', validacaoDoCorpoReq(produtoSchema), produtos.editarProduto);
 rotas.get('/produto', produtos.listarProdutos);
-rotas.get('/produto/:id', produtos.detalharProduto);
-rotas.delete('/produto/:id', produtos.removerProduto);
+rotas.get('/produto/:id', produtos.detalharProdutos);
+rotas.delete('/produto/:id', produtos.removerProdutos);
 
-rotas.post('/cliente', validarClientes(clienteSchema), clientes.cadastrarCliente);
-rotas.put('/cliente/:id', validarClientes(clienteSchema), clientes.atualizarCliente);
+rotas.post('/cliente', validacaoDoCorpoReq(clienteSchema), clientes.cadastrarCliente);
+rotas.put('/cliente/:id', validacaoDoCorpoReq(clienteSchema), clientes.editarCliente);
 rotas.get('/cliente', clientes.listarCliente);
 rotas.get('/cliente/:id', clientes.detalharCliente);
+
+rotas.post('/pedido', validacaoDoCorpoReq(pedidoSchema), pedidos.cadastrarPedidos)
 
 module.exports = rotas;

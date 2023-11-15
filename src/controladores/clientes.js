@@ -2,8 +2,7 @@ const knex = require('../database/conexao');
 const joi = require('joi');
 
 const cadastrarCliente = async (req, res) => {
-  const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } =
-    req.body;
+  const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } = req.body;
 
   try {
     const emailExiste = await knex('clientes').where('email', email).first();
@@ -46,7 +45,7 @@ const cadastrarCliente = async (req, res) => {
   }
 };
 
-const atualizarCliente = async (req, res) => {
+const editarCliente = async (req, res) => {
   const { id } = req.params;
 
   const { nome, email, cpf, cep, rua, numero, bairro, cidade, estado } =
@@ -114,8 +113,8 @@ const detalharCliente = async (req, res) => {
 };
 
 module.exports = {
-  listarCliente,
-  detalharCliente,
   cadastrarCliente,
-  atualizarCliente,
+  editarCliente,
+  detalharCliente,
+  listarCliente
 };
