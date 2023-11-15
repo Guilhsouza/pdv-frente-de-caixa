@@ -115,9 +115,18 @@ const removerProdutos = async (req, res) => {
             return res.status(400).json({ mensagem: 'Produto não encontrado' })
         }
 
+        const produtoPedido = await knex('pedido_produtos').where('produto_id', id)
+
+        console.log(produtoPedido);
+
+        if (produtoPedido.length > 0) {
+            return res.status(400).json({ mensagem: `[ERRO] Não é possivel excluir um produto enquanto há uma solitação (pedido) dele em aberto` })
+        }
+
         await knex('produtos').where({ id }).del();
         return res.status(200).json({ mensagem: 'Produto excluído com sucesso' })
     } catch (error) {
+        console.log(error.message);
         return res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 }
