@@ -37,6 +37,7 @@ rotas.put('/cliente/:id', validacaoDoCorpoReq(clienteSchema), clientes.editarCli
 rotas.get('/cliente', clientes.listarCliente);
 rotas.get('/cliente/:id', clientes.detalharCliente);
 
-rotas.post('/pedido', validacaoDoCorpoReq(pedidoSchema), pedidos.cadastrarPedidos)
+rotas.post('/pedido', validacaoDoCorpoReq(pedidoSchema), pedidos.cadastrarPedidos);
+rotas.get('/pedido', validacaoDoCorpoReq(pedidoSchema), pedidos.listarPedidos);
 
 module.exports = rotas;
