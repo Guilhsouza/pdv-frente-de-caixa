@@ -48,7 +48,7 @@ const cadastrarProdutos = async (req, res) => {
             .status(201)
             .json({ mensagem: 'Produto criado com sucesso', adicionarProduto });
     } catch (error) {
-
+        console.log(error)
         return res.status(500).json({ mensagem: 'erro interno no servidor' });
     }
 };
@@ -146,20 +146,6 @@ const removerProdutos = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const produtoExcluido = await knex('produtos')
-            .where({ id })
-            .delete()
-            .returning('*');
-
-        if (produtoExcluido[0].produto_imagem !== null) {
-            const pathIndex = produtoExcluido[0].produto_imagem.indexOf(produtoExcluido[0].id);
-            const path = produtoExcluido[0].produto_imagem.slice(pathIndex);
-            await removeImagem(`produtos/${path}`);
-        }
-
-        return res.status(200).json({ mensagem: 'Produto excluído com sucesso' });
-    } catch (error) {
-
         const produtoPedido = await knex('pedido_produtos').where('produto_id', id)
 
         if (produtoPedido.length > 0) {
@@ -167,9 +153,15 @@ const removerProdutos = async (req, res) => {
         }
 
         await knex('produtos').where({ id }).del();
+
+        if (produtoExcluido[0].produto_imagem !== null) {
+            const pathIndex = produtoExcluido[0].produto_imagem.indexOf(produtoExcluido[0].id);
+            const path = produtoExcluido[0].produto_imagem.slice(pathIndex);
+            await removeImagem(`produtos/${path}`);
+        }
+
         return res.status(200).json({ mensagem: 'Produto excluído com sucesso' })
     } catch (error) {
-
         return res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 };
