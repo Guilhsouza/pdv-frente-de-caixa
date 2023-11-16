@@ -13,6 +13,7 @@ const validacaoDoCorpoReq = require('../intermediarios/validarCorpoReq');
 const produtoSchema = require('../validacoes/produtoSchema');
 const clienteSchema = require('../validacoes/clienteSchema');
 const pedidoSchema = require('../validacoes/pedidoSchema');
+const multer = require('../servicos/multer');
 
 const rotas = Router();
 
@@ -26,8 +27,8 @@ rotas.put('/usuario', usuarios.editarUsuario);
 
 rotas.get('/categoria', categorias.listarCategorias);
 
-rotas.post('/produto', validacaoDoCorpoReq(produtoSchema), produtos.cadastrarProdutos);
-rotas.put('/produto/:id', validacaoDoCorpoReq(produtoSchema), produtos.editarProduto);
+rotas.post('/produto', multer.single('imagem'), produtos.cadastrarProdutos);
+rotas.put('/produto/:id', validacaoDoCorpoReq(produtoSchema), multer.single('imagem'), produtos.editarProduto);
 rotas.get('/produto', produtos.listarProdutos);
 rotas.get('/produto/:id', produtos.detalharProdutos);
 rotas.delete('/produto/:id', produtos.removerProdutos);
