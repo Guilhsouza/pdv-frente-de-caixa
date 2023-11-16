@@ -27,7 +27,7 @@ rotas.put('/usuario', usuarios.editarUsuario);
 
 rotas.get('/categoria', categorias.listarCategorias);
 
-rotas.post('/produto', multer.single('imagem'), produtos.cadastrarProdutos);
+rotas.post('/produto', validacaoDoCorpoReq(produtoSchema), multer.single('imagem'), produtos.cadastrarProdutos);
 rotas.put('/produto/:id', validacaoDoCorpoReq(produtoSchema), multer.single('imagem'), produtos.editarProduto);
 rotas.get('/produto', produtos.listarProdutos);
 rotas.get('/produto/:id', produtos.detalharProdutos);

@@ -62,7 +62,6 @@ const editarProduto = async (req, res) => {
         const descricaoExistente = await knex('produtos')
             .where({ descricao })
             .andWhere('id', '!=', id)
-            .returning('*')
             .first();
 
         if (descricaoExistente) {
@@ -71,25 +70,28 @@ const editarProduto = async (req, res) => {
 
         if (imagem) {
             try {
-                const imagem = imagem.originalname.split(' ').join('-')
+                const imagemNome = imagem.originalname.split(' ').join('-')
 
                 const produto = await knex('produtos').where({ id }).first()
 
-                if (produto.imagem !== null) {
-                    const indexPath = produto.imagem.indexOf(produto.id)
-                    const path = produto.imagem.slice(indexPath)
+                if (produto.produto_imagem !== null) {
+                    const indexPath = produto.produto_imagem.indexOf(produto.id)
+                    const path = produto.produto_imagem.slice(indexPath)
                     await removeImagem(`produtos/${path}`)
                 }
 
                 const imagemProduto = await uploadImagem(
-                    `produtos/${id}/${imagem}`,
+                    `produtos/${id}/${imagemNome}`,
                     imagem.buffer,
                     imagem.mimetype
                 )
 
-                const atualizarImagem = await knex('produtos').update({ descricao, quantidade_estoque, valor, categoria_id, imagem: imagemProduto.imagem }).where({ id }).returning('*');
+                const atualizarProduto = await knex('produtos')
+                    .where({ id })
+                    .update({ descricao, quantidade_estoque, valor, categoria_id, produto_imagem: imagemProduto.imagem })
+                    .returning('*');
 
-                return response.status(201).json(atualizarImagem[0])
+                return response.status(201).json(atualizarProduto[0])
             } catch (error) {
                 return response.status(500).json({ message: 'Erro interno do servidor.' })
             }
