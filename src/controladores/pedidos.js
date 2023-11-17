@@ -56,6 +56,16 @@ const cadastrarPedidos = async (req, res) => {
 
 }
 
+const listarPedidos = async (req, res) => {
+    try {
+        const pedidos = await knex('pedidos');
+        return res.status(200).json(pedidos);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+}
+
 module.exports = {
-    cadastrarPedidos
+    cadastrarPedidos,
+    listarPedidos,
 }
