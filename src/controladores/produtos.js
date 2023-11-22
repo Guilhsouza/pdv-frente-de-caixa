@@ -91,9 +91,9 @@ const editarProduto = async (req, res) => {
                     .update({ descricao, quantidade_estoque, valor, categoria_id, produto_imagem: imagemProduto.imagem })
                     .returning('*');
 
-                return response.status(201).json(atualizarProduto[0])
+                return res.status(201).json(atualizarProduto[0])
             } catch (error) {
-                return response.status(500).json({ message: 'Erro interno do servidor.' })
+                return res.status(500).json({ message: 'Erro interno do servidor.' })
             }
         }
 
@@ -107,6 +107,7 @@ const editarProduto = async (req, res) => {
         await knex('produtos').where({ id }).update(produtoAtualizado);
         return res.status(200).json({ mensagem: 'Produto atualizado com sucesso' });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ mensagem: '[ERRO] Erro interno no servidor' });
     }
 };
@@ -152,6 +153,12 @@ const removerProdutos = async (req, res) => {
             return res.status(400).json({ mensagem: `[ERRO] Não é possivel excluir um produto enquanto há uma solitação (pedido) dele em aberto` })
         }
 
+        const produtoExcluido = await knex('produtos').where({ id })
+
+        if (!produtoExcluido) {
+            return res.status(404).json({ mensagem: 'Produto a ser excluído não foi encontrado' })
+        }
+
         await knex('produtos').where({ id }).del();
 
         if (produtoExcluido[0].produto_imagem !== null) {
@@ -162,6 +169,7 @@ const removerProdutos = async (req, res) => {
 
         return res.status(200).json({ mensagem: 'Produto excluído com sucesso' })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 };

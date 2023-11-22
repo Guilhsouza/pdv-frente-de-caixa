@@ -18,7 +18,6 @@ const pedidoSchema = joi.object({
 
     observacao: joi.string()
         .default('Não foi inserido nenhuma obersavacão.')
-        .alphanum()
         .messages({
             'string.base': 'O campo observacao deve ser um texto!',
             'string.alphanum': 'Observação só pode conter letrar e números, sem caracteres especiais'
