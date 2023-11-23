@@ -13,20 +13,25 @@ const cadastrarPedidos = async (req, res) => {
         }
 
         for (let produtos of pedido_produtos) {
-            const produto = await knex('produtos').where('id', produtos.produto_id).first()
+            const produtoNoEstoque = await knex('produtos').where('id', produtos.produto_id).first()
 
-            if (!produto) {
+            if (!produtoNoEstoque) {
                 return res.status(404).json({ mensagem: `O produto não foi encontrado!` })
             }
 
-            if (produto.quantidade_estoque < produtos.quantidade_produto) {
-                return res.status(400).json({ mensagem: `O produto ${produto.descricao} não tem a quantidade suficiente para efetuar o pedido.`, estoque: produto.quantidade_estoque })
+            if (produtoNoEstoque.quantidade_estoque < produtos.quantidade_produto) {
+                return res.status(400).json({ mensagem: `O produto ${produtoNoEstoque.descricao} não tem a quantidade suficiente para efetuar o pedido.`, estoque: produtoNoEstoque.quantidade_estoque })
             }
 
-            const valorTotalDoProduto = produto.valor * produtos.quantidade_produto
+            const valorAtualizadoEstoque = produtoNoEstoque.quantidade_estoque - produtos.quantidade_produto
+
+            await knex('produtos').update('quantidade_estoque', valorAtualizadoEstoque).where('id', produtos.produto_id)
+
+            const valorTotalDoProduto = produtoNoEstoque.valor * produtos.quantidade_produto
 
             valoresDoPedido.push(valorTotalDoProduto)
         }
+
 
         const valorTotal = valoresDoPedido.reduce((acumulador, valor) => acumulador + valor)
 
