@@ -58,10 +58,20 @@ const cadastrarPedidos = async (req, res) => {
 
 const listarPedidos = async (req, res) => {
     try {
-        const pedidos = await knex('pedidos');
+        const clienteId = req.query.clienteId;
+
+        const consulta = knex('pedidos');
+
+        if (clienteId) {
+            consulta.where('cliente_id', clienteId);
+        }
+
+        const pedidos = await consulta;
+
         return res.status(200).json(pedidos);
     } catch (error) {
-        return res.status(400).json(error.message);
+        console.error("Erro ao listar pedidos:", error);
+        return res.status(400).json({ error: "Erro interno do servidor." });
     }
 }
 
