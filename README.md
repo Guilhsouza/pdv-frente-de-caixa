@@ -1,11 +1,11 @@
-<h1>PDV Frente de caixa</h1> 
+<h1>PDV Frente de caixa 💻</h1> 
 
 <p allign = center>
 <img src = "https://img.shields.io/badge/status-concluído-green">
 <img src = "https://img.shields.io/badge/licence-MIT-blue">
 <p>
 
-## Tópicos 
+## Tópicos 🌐
 
 :small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
 
@@ -19,10 +19,10 @@
 
 :small_blue_diamond: [Desenvolvedores](#Desenvolvedores)
 
-## Descrição do Projeto 
+## Descrição do Projeto 📄
 O Ponto de Venda (PDV) é um sistema de frente de caixa que visa facilitar as operações de vendas, gerenciamento de clientes, usuários e produtos. Este projeto inclui operações CRUD (Criar, Ler, Atualizar, Excluir) para clientes, usuários e produtos. Além disso, oferece a capacidade de adicionar produtos ao banco de dados, incluindo o envio de imagens associadas, e implementa um sistema de verificação por e-mail após a conclusão de uma compra.
 
-## Ferramentas Utilizadas 
+## Ferramentas Utilizadas 🔧
 
 <p align="center">
   <img title='JavaScript' alt='javascript' src='https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E' />
@@ -34,44 +34,44 @@ O Ponto de Venda (PDV) é um sistema de frente de caixa que visa facilitar as op
 </p>
 
 
-## Funcionalidades
+## Funcionalidades 🚀
 
-### Operações CRUD
+### Operações CRUD 🔄
 
-1. **Clientes**
+1. **Clientes** 🤝
    - **Criar Cliente:** Adicionar novos clientes ao sistema.
    - **Ler Cliente:** Visualizar informações detalhadas dos clientes cadastrados.
    - **Atualizar Cliente:** Modificar informações existentes de clientes.
    - **Excluir Cliente:** Remover clientes do banco de dados.
 
-2. **Usuários**
+2. **Usuários** 👥
    - **Criar Usuário:** Registrar novos usuários no sistema.
    - **Ler Usuário:** Visualizar detalhes dos usuários cadastrados.
    - **Atualizar Usuário:** Modificar informações de usuários existentes.
    - **Excluir Usuário:** Remover usuários do sistema.
 
-3. **Produtos**
+3. **Produtos** 🛍️
    - **Criar Produto:** Adicionar novos produtos ao inventário.
    - **Ler Produto:** Consultar informações detalhadas dos produtos cadastrados.
    - **Atualizar Produto:** Modificar detalhes e atributos dos produtos.
    - **Excluir Produto:** Remover produtos do inventário.
 
-### Adição de Produtos ao Banco de Dados
+### Adição de Produtos ao Banco de Dados 🗃️
 
 - **Upload de Imagens:** Possibilidade de associar imagens aos produtos durante a inclusão no banco de dados.
 
-### Sistema de Verificação por E-mail
+### Sistema de Verificação por E-mail 📧
 
 - **Após Compra:** Implementação de um sistema de verificação por e-mail, acionado após a conclusão de uma compra. Garante uma camada adicional de segurança e confirmação para transações realizadas.
 
 Este projeto oferece uma abordagem abrangente para facilitar e otimizar as operações relacionadas a vendas e gerenciamento de produtos, clientes e usuários.
 
 
-## Deploy da Aplicação
+## Deploy da Aplicação 🚀
 
 > Link do deploy da aplicação. https://glamorous-suit-frog.cyclic.app/
-
-## Pré-requisitos
+ 
+## Pré-requisitos 🛠️
 
 :warning: Para testar a aplicação, é viável interagir diretamente por meio do link de deploy. Contudo, algumas funcionalidades requerem autenticação. Certifique-se de estar devidamente logado e insira seu Token de autenticação para desbloquear o acesso completo à API.
 
@@ -84,7 +84,7 @@ Este projeto oferece uma abordagem abrangente para facilitar e otimizar as opera
 
 </div>
 
-## Licença 
+## Licença 📋
 
 The [MIT License]() (MIT)
 
